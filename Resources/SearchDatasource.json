@@ -1,0 +1,18 @@
+[
+    {
+        "name":  "sql-onspd-test",
+        "description":  null,
+        "type":  "azuresql",
+        "credentials":  {
+            "connectionString":  null
+        },
+        "container":  {
+            "name":  "ONSPD",
+            "query":  null
+        },
+        "dataChangeDetectionPolicy":  {
+            "@odata.type":  "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy",
+            "highWaterMarkColumnName":  "updated"
+        }
+    }
+]
