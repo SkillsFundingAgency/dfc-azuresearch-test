@@ -1,10 +1,10 @@
 [
     {
         "name":  "sql-onspd-test",
-        "description":  null,
+        "description":  "Gets postcode data from the ONSPD view",
         "type":  "azuresql",
         "credentials":  {
-            "connectionString":  null
+            "connectionString":  "__sqlConnectionString__"
         },
         "container":  {
             "name":  "ONSPD",
