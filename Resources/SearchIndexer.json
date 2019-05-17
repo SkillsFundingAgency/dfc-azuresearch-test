@@ -3,6 +3,15 @@
         "name":  "onspdquarterlytest",
         "description":  "Run manually each quarter",
         "dataSourceName":  "sql-onspd-test",
-        "targetIndexName":  "onspdtest"
+        "targetIndexName":  "onspdtest",
+        "fieldMappings":  [
+            {
+                "sourceFieldName":  "pcd",
+                "targetFieldName":  "pcd",
+                "mappingFunction":  {
+                    "name":  "base64Encode"
+                }
+            }
+        ]
     }
 ]
