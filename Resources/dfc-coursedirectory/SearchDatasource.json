@@ -1,18 +1,18 @@
 [
     {
-        "name":  "sql-lars-test",
-        "description":  "Gets data from the LARS view",
+        "name":  "sql-onspd-test",
+        "description":  "Gets postcode data from the ONSPD view",
         "type":  "azuresql",
         "credentials":  {
             "connectionString":  "__sqlConnectionString__"
         },
         "container":  {
-            "name":  "LARS",
+            "name":  "ONSPD",
             "query":  null
         },
         "dataChangeDetectionPolicy":  {
             "@odata.type":  "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy",
-            "highWaterMarkColumnName":  "Modified_On"
+            "highWaterMarkColumnName":  "updated"
         }
     }
 ]

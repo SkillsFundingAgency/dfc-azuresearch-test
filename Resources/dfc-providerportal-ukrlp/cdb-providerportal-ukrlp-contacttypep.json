@@ -1,0 +1,20 @@
+[
+    {
+        "name" : "cdb-providerportal-ukrlp-contacttypep",
+        "type" : "documentdb",
+        "description": "Cosmos DB, providerportal database, ukrlp collection, only contact type P",
+        "credentials" :
+        {
+            "connectionString": "AccountEndpoint=https://dfc-dev-prov-cdb.documents.azure.com:443/;AccountKey=5g8JmODSAlrkJJsgtNB5XvX2KX54gBHoK8ij8wYaFiua6Z6O03J1dzS92LUKI8eZGkgOLQoMRBfebwaiXx5AHg==;Database=providerportal"
+        },
+        "container" :
+        {
+            "name" : "ukrlp",
+            "query" : "SELECT VALUE { 'id':c.id, '_ts':c._ts, 'UKPRN':c.UnitedKingdomProviderReferenceNumber, 'Name':c.ProviderName, 'Region':c.Region, 'DateUpdated':c.DateUpdated, 'DateOnboarded':c.DateOnboarded, 'ContactType':a.ContactType, 'PostCode':a.ContactAddress.PostCode, 'Towns':a.ContactAddress.Items, 'Town':a.ContactAddress.Items[0] } FROM c JOIN a IN c.ProviderContact WHERE a.ContactType = 'P' AND c._ts >= @HighWaterMark ORDER BY c._ts"
+        },
+        "dataChangeDetectionPolicy": {
+            "@odata.type" : "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy",
+            "highWaterMarkColumnName" : "_ts"
+        }
+    }
+]
