@@ -7,10 +7,7 @@
         "fieldMappings":  [
             {
                 "sourceFieldName":  "pcd",
-                "targetFieldName":  "pcd",
-                "mappingFunction":  {
-                    "name":  "base64Encode"
-                }
+                "targetFieldName":  "pcd"
             }
         ]
     }
