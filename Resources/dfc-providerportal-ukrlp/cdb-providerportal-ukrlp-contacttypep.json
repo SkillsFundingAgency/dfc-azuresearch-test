@@ -5,7 +5,7 @@
         "description": "Cosmos DB, providerportal database, ukrlp collection, only contact type P",
         "credentials" :
         {
-            "connectionString": "AccountEndpoint=https://dfc-dev-prov-cdb.documents.azure.com:443/;AccountKey=5g8JmODSAlrkJJsgtNB5XvX2KX54gBHoK8ij8wYaFiua6Z6O03J1dzS92LUKI8eZGkgOLQoMRBfebwaiXx5AHg==;Database=providerportal"
+            "connectionString": "__cosmosConnectionString__"
         },
         "container" :
         {

@@ -1,6 +1,6 @@
 [
     {
-        "name":  "sql-lars-test",
+        "name":  "sql-coursedirectory-lars-test",
         "description":  "Gets data from the LARS view",
         "type":  "azuresql",
         "credentials":  {

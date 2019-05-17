@@ -2,7 +2,7 @@
     {
         "name": "larsdailytest",
         "description": "Daily update lars index",
-        "dataSourceName": "sql-lars-test",
+        "dataSourceName": "sql-coursedirectory-lars-test",
         "targetIndexName": "larstest",
         "schedule": {
             "interval": "P1D",

@@ -1,0 +1,243 @@
+{
+	"tasks": [{
+			"environment": {},
+			"displayName": "Tokenize Searches",
+			"alwaysRun": false,
+			"continueOnError": false,
+			"condition": "and(succeeded(), ne(variables.JsonFolder, ''))",
+			"enabled": true,
+			"timeoutInMinutes": 0,
+			"inputs": {
+				"SourcePath": "$(JsonFolder)",
+				"TargetFileNames": "*.json",
+				"RecursiveSearch": "true",
+				"RequireVariable": "false",
+				"TokenStart": "$(Placeholder)",
+				"TokenEnd": "$(Placeholder)"
+			},
+			"task": {
+				"id": "4b8ea1ca-9132-4caa-8127-7490130e131f",
+				"versionSpec": "2.*",
+				"definitionType": "task"
+			}
+		}, {
+			"environment": {},
+			"displayName": "Create Search Indexes",
+			"alwaysRun": false,
+			"continueOnError": false,
+			"condition": "and(succeeded(), ne(variables.IndexFile, ''))",
+			"enabled": true,
+			"timeoutInMinutes": 0,
+			"inputs": {
+				"ConnectedServiceNameSelector": "ConnectedServiceNameARM",
+				"ConnectedServiceName": "",
+				"ConnectedServiceNameARM": "$(AzureSubscription)",
+				"ScriptType": "FilePath",
+				"ScriptPath": "$(ScriptPath)/Set-SearchIndexes.ps1",
+				"Inline": "# You can write your azure powershell scripts inline here. \n# You can also pass predefined and custom variables to this script using arguments",
+				"ScriptArguments": "-SearchName $(SearchName) -ResourceGroupName $(SearchResourceGroupName) -IndexFilePath \"$(IndexFile)\"",
+				"errorActionPreference": "stop",
+				"FailOnStandardError": "false",
+				"TargetAzurePs": "LatestVersion",
+				"CustomTargetAzurePs": ""
+			},
+			"task": {
+				"id": "72a1931b-effb-4d2e-8fd8-f8472a07cb62",
+				"versionSpec": "3.*",
+				"definitionType": "task"
+			}
+		}, {
+			"environment": {},
+			"displayName": "Create Search Datasources",
+			"alwaysRun": false,
+			"continueOnError": false,
+			"condition": "and(succeeded(), ne(variables.DatasourceFile, ''))",
+			"enabled": true,
+			"timeoutInMinutes": 0,
+			"inputs": {
+				"ConnectedServiceNameSelector": "ConnectedServiceNameARM",
+				"ConnectedServiceName": "",
+				"ConnectedServiceNameARM": "$(AzureSubscription)",
+				"ScriptType": "FilePath",
+				"ScriptPath": "$(ScriptPath)/Set-SearchDatasources.ps1",
+				"Inline": "# You can write your azure powershell scripts inline here. \n# You can also pass predefined and custom variables to this script using arguments",
+				"ScriptArguments": "-SearchName $(SearchName) -ResourceGroupName $(SearchResourceGroupName) -IndexFilePath \"$(DatasourceFile)\"",
+				"errorActionPreference": "stop",
+				"FailOnStandardError": "false",
+				"TargetAzurePs": "LatestVersion",
+				"CustomTargetAzurePs": ""
+			},
+			"task": {
+				"id": "72a1931b-effb-4d2e-8fd8-f8472a07cb62",
+				"versionSpec": "3.*",
+				"definitionType": "task"
+			}
+		}, {
+			"environment": {},
+			"displayName": "Create Search Indexers",
+			"alwaysRun": false,
+			"continueOnError": false,
+			"condition": "and(succeeded(), ne(variables.IndexerFile, ''))",
+			"enabled": true,
+			"timeoutInMinutes": 0,
+			"inputs": {
+				"ConnectedServiceNameSelector": "ConnectedServiceNameARM",
+				"ConnectedServiceName": "",
+				"ConnectedServiceNameARM": "$(AzureSubscription)",
+				"ScriptType": "FilePath",
+				"ScriptPath": "$(ScriptPath)/Set-SearchIndexers.ps1",
+				"Inline": "# You can write your azure powershell scripts inline here. \n# You can also pass predefined and custom variables to this script using arguments",
+				"ScriptArguments": "-SearchName $(SearchName) -ResourceGroupName $(SearchResourceGroupName) -IndexFilePath \"$(IndexerFile)\"",
+				"errorActionPreference": "stop",
+				"FailOnStandardError": "false",
+				"TargetAzurePs": "LatestVersion",
+				"CustomTargetAzurePs": ""
+			},
+			"task": {
+				"id": "72a1931b-effb-4d2e-8fd8-f8472a07cb62",
+				"versionSpec": "3.*",
+				"definitionType": "task"
+			}
+		}
+	],
+    "runsOn": ["Agent", "DeploymentGroup"],
+	"revision": 1,
+	"createdBy": {
+		"displayName": "Richard Lee",
+		"id": "1460c023-d97f-4da5-a47a-a9068540cc6a",
+		"uniqueName": "dicci@hotmail.co.uk"
+	},
+	"createdOn": "2019-05-17T05:12:25.690Z",
+	"modifiedBy": {
+		"displayName": "Richard Lee",
+		"id": "1460c023-d97f-4da5-a47a-a9068540cc6a",
+		"uniqueName": "dicci@hotmail.co.uk"
+	},
+	"modifiedOn": "2019-05-17T05:12:25.690Z",
+	"id": "f038038e-1ab3-470b-90bb-aa4af835ca63",
+	"name": "dfc-azuresearch-deploy",
+	"version": {
+		"major": 1,
+		"minor": 0,
+		"patch": 0,
+		"isTest": false
+	},
+	"iconUrl": "https://cdn.vsassets.io/v/M151_20190513.4/_content/icon-meta-task.png",
+	"friendlyName": "dfc-azuresearch-deploy",
+	"description": "Deploys an Azure search (index, datasource and indexer)",
+	"category": "Deploy",
+	"definitionType": "metaTask",
+	"author": "Richard Lee",
+	"demands": [],
+	"groups": [],
+	"inputs": [{
+			"aliases": [],
+			"options": {},
+			"properties": {
+				"EndpointFilterRule": "ScopeLevel == ManagementGroup || ScopeLevel != ManagementGroup"
+			},
+			"name": "AzureSubscription",
+			"label": "AzureSubscription",
+			"defaultValue": "",
+			"required": true,
+			"type": "connectedService:AzureRM",
+			"helpMarkDown": "Azure Resource Manager subscription to configure before running PowerShell",
+			"groupName": ""
+		}, {
+			"aliases": [],
+			"options": {},
+			"properties": {},
+			"name": "DatasourceFile",
+			"label": "DatasourceFile",
+			"defaultValue": "",
+			"required": false,
+			"type": "string",
+			"helpMarkDown": "Optional: Datasource json file to import",
+			"groupName": ""
+		}, {
+			"aliases": [],
+			"options": {},
+			"properties": {},
+			"name": "IndexerFile",
+			"label": "IndexerFile",
+			"defaultValue": "",
+			"required": false,
+			"type": "string",
+			"helpMarkDown": "Optional: Indexer file to import",
+			"groupName": ""
+		}, {
+			"aliases": [],
+			"options": {},
+			"properties": {},
+			"name": "IndexFile",
+			"label": "IndexFile",
+			"defaultValue": "",
+			"required": false,
+			"type": "string",
+			"helpMarkDown": "Optonal: Index file to import",
+			"groupName": ""
+		}, {
+			"aliases": [],
+			"options": {},
+			"properties": {},
+			"name": "JsonFolder",
+			"label": "JsonFolder",
+			"defaultValue": "",
+			"required": false,
+			"type": "string",
+			"helpMarkDown": "Optional: Source path to start looking recursively for the TargetFileName that contains the tokens (__<variable-name>__). These patterns will be replaced with user-defined variables.",
+			"groupName": ""
+		}, {
+			"aliases": [],
+			"options": {},
+			"properties": {},
+			"name": "Placeholder",
+			"label": "Placeholder",
+			"defaultValue": "__",
+			"required": true,
+			"type": "string",
+			"helpMarkDown": "The token place holder at the front of the variable name. [__]<variable-name>__",
+			"groupName": ""
+		}, {
+			"aliases": [],
+			"options": {},
+			"properties": {},
+			"name": "ScriptPath",
+			"label": "ScriptPath",
+			"defaultValue": "$(System.DefaultWorkingDirectory)/dfc-devops/PSScripts",
+			"required": true,
+			"type": "string",
+			"helpMarkDown": "Location of the dfc-devops PSScript ",
+			"groupName": ""
+		}, {
+			"aliases": [],
+			"options": {},
+			"properties": {},
+			"name": "SearchName",
+			"label": "SearchName",
+			"defaultValue": "",
+			"required": true,
+			"type": "string",
+			"helpMarkDown": "Name of Azure Search to add to",
+			"groupName": ""
+		}, {
+			"aliases": [],
+			"options": {},
+			"properties": {},
+			"name": "SearchResourceGroupName",
+			"label": "SearchResourceGroupName",
+			"defaultValue": "",
+			"required": true,
+			"type": "string",
+			"helpMarkDown": "Resource group the Azure Search belongs to",
+			"groupName": ""
+		}
+	],
+	"satisfies": [],
+	"sourceDefinitions": [],
+	"dataSourceBindings": [],
+	"instanceNameFormat": "Task group: dfc-azuresearch-deploy $(AzureSubscription)",
+	"preJobExecution": {},
+	"execution": {},
+	"postJobExecution": {}
+}
